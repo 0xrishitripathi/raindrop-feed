@@ -1,0 +1,4 @@
+interface:
+  display_name: "Set Up Raindrop Feed"
+  short_description: "Configure and deploy a private Raindrop Feed"
+  default_prompt: "Use $setup-raindrop-feed to configure and deploy this cloned Raindrop Feed."

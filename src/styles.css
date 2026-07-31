@@ -1,0 +1,1274 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap");
+
+:root {
+  font-family: "Manrope", system-ui, sans-serif;
+  color-scheme: dark;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3f5f0;
+  --bg-soft: #e9eee7;
+  --surface: #fcfbf5;
+  --surface-strong: #ffffff;
+  --ink: #242824;
+  --muted: #667068;
+  --muted-strong: #48524a;
+  --line: #dce2d8;
+  --accent: #416f66;
+  --accent-strong: #28554d;
+  --accent-soft: #d8ebe6;
+  --warning: #976322;
+  --warning-soft: #f1dfc3;
+  --danger: #9a3d42;
+  --shadow: 0 18px 50px rgb(41 52 42 / 0.12);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #151816;
+  --bg-soft: #1c211e;
+  --surface: #20251f;
+  --surface-strong: #252b25;
+  --ink: #f1f0e8;
+  --muted: #a8afa6;
+  --muted-strong: #c7ccc3;
+  --line: #333b34;
+  --accent: #90c9b9;
+  --accent-strong: #b8e3d8;
+  --accent-soft: #263f39;
+  --warning: #e0ae65;
+  --warning-soft: #413523;
+  --danger: #f0a4a6;
+  --shadow: 0 22px 70px rgb(0 0 0 / 0.28);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+  background: var(--bg);
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, color-mix(in srgb, var(--accent-soft) 45%, transparent), transparent 34rem),
+    linear-gradient(180deg, var(--bg-soft), var(--bg) 24rem);
+  color: var(--ink);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+.appShell {
+  width: min(1180px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 34px 0 64px;
+}
+
+.accessShell {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+}
+
+.accessPanel {
+  display: grid;
+  width: min(100%, 420px);
+  gap: 26px;
+  padding: 30px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 94%, transparent);
+  box-shadow: var(--shadow);
+}
+
+.accessHeading {
+  display: grid;
+  gap: 7px;
+}
+
+.accessHeading > svg {
+  color: var(--accent);
+}
+
+.accessHeading h1 {
+  font-size: 2.45rem;
+}
+
+.accessForm {
+  display: grid;
+  gap: 10px;
+}
+
+.accessForm label {
+  color: var(--muted-strong);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.accessForm input {
+  width: 100%;
+  height: 44px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  outline: none;
+  background: var(--surface-strong);
+  color: var(--ink);
+  font: inherit;
+  padding: 0 12px;
+}
+
+.accessForm input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 70%, transparent);
+}
+
+.accessSubmit {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--bg);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.88rem;
+  font-weight: 800;
+  padding: 0 16px;
+}
+
+.accessSubmit:hover,
+.accessSubmit:focus-visible {
+  background: var(--accent-strong);
+}
+
+.accessSubmit:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.accessError {
+  color: var(--danger);
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.topBar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 0 34px;
+}
+
+.brand {
+  display: grid;
+  gap: 5px;
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(2.55rem, 6vw, 5.7rem);
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: 0;
+}
+
+.topControls {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.segmented {
+  display: inline-grid;
+  grid-template-columns: repeat(3, minmax(76px, 1fr));
+  align-items: center;
+  min-height: 42px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
+.segmented button {
+  min-width: 0;
+  height: 32px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 0.86rem;
+  font-weight: 700;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.segmented button:hover,
+.segmented button:focus-visible {
+  color: var(--ink);
+}
+
+.segmented button.active {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.iconButton {
+  display: inline-grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 86%, transparent);
+  color: var(--muted-strong);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.iconButton:hover,
+.iconButton:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 48%, var(--line));
+  color: var(--accent-strong);
+  transform: translateY(-1px);
+}
+
+.iconButton:disabled {
+  cursor: wait;
+  opacity: 0.62;
+  transform: none;
+}
+
+.iconButton.soft {
+  background: color-mix(in srgb, var(--surface) 68%, transparent);
+}
+
+.feedFrame {
+  display: grid;
+  gap: 22px;
+}
+
+.feedToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.feedSummary {
+  display: flex;
+  gap: 14px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.feedSearch {
+  display: flex;
+  width: min(100%, 340px);
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--surface-strong);
+  color: var(--muted);
+  padding: 0 8px 0 10px;
+}
+
+.feedSearch:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 70%, transparent);
+}
+
+.feedSearch input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.86rem;
+}
+
+.feedSearch input::placeholder {
+  color: var(--muted);
+}
+
+.searchClear {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.searchClear:hover,
+.searchClear:focus-visible {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+
+.feedSummary span + span::before {
+  content: "/";
+  margin-right: 14px;
+  color: color-mix(in srgb, var(--muted) 48%, transparent);
+}
+
+.sectionStack {
+  display: grid;
+  gap: 34px;
+}
+
+.periodSection {
+  display: grid;
+  gap: 16px;
+  padding-top: 4px;
+}
+
+.periodHeading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.periodHeader {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto 24px;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  min-height: 54px;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  text-align: left;
+}
+
+.periodLabelAction {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0 11px;
+}
+
+.periodLabelAction:hover:not(:disabled),
+.periodLabelAction:focus-visible {
+  border-color: var(--accent);
+}
+
+.periodLabelAction:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.labelError {
+  margin: -7px 0 0;
+  color: var(--danger);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.periodTitle {
+  min-width: 0;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(1.55rem, 4vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.05;
+}
+
+.periodMeta {
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.chevron {
+  color: var(--muted);
+  transition: transform 180ms ease, color 180ms ease;
+}
+
+.chevron.expanded {
+  color: var(--accent);
+  transform: rotate(180deg);
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 272px), 1fr));
+  gap: 16px;
+}
+
+.bookmarkCard {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(9px);
+  animation: revealCard 260ms ease forwards;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    opacity 200ms ease,
+    transform 200ms ease;
+}
+
+.bookmarkCard:hover,
+.bookmarkCard:focus-within {
+  border-color: color-mix(in srgb, var(--accent) 42%, var(--line));
+  transform: translateY(-2px);
+}
+
+.bookmarkCard.read {
+  border-color: color-mix(in srgb, var(--muted) 42%, var(--line));
+  background: color-mix(in srgb, var(--surface-strong) 88%, var(--muted));
+  box-shadow: none;
+}
+
+.bookmarkCard.read .cardMedia > img,
+.bookmarkCard.read .coverFallback {
+  filter: grayscale(1) saturate(0.35);
+  opacity: 0.58;
+}
+
+.bookmarkCard.read .cardBody {
+  opacity: 0.64;
+}
+
+.bookmarkCard.read .cardLabels li {
+  border-color: color-mix(in srgb, var(--muted) 44%, var(--line));
+  background: color-mix(in srgb, var(--surface-strong) 78%, var(--muted));
+  color: var(--muted-strong);
+}
+
+.bookmarkCard.read:hover .cardBody,
+.bookmarkCard.read:focus-within .cardBody {
+  opacity: 0.82;
+}
+
+.cardMedia {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--surface-strong);
+}
+
+.cardMedia > img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.coverFallback {
+  display: grid;
+  width: 100%;
+  height: 100%;
+  place-items: center;
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--accent-soft) 82%, var(--surface)), var(--surface-strong)),
+    var(--surface-strong);
+}
+
+.coverFallback img {
+  width: 32px;
+  height: 32px;
+}
+
+.coverFallback span {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.ageBadge {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  max-width: calc(100% - 20px);
+  padding: 6px 9px;
+  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 84%, transparent);
+  color: var(--accent-strong);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.12);
+}
+
+.ageBadge.stale {
+  border-color: color-mix(in srgb, var(--warning) 36%, transparent);
+  background: var(--warning-soft);
+  color: var(--warning);
+}
+
+.cardActions {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  transform: translateY(-3px);
+  transition: opacity 170ms ease, transform 170ms ease;
+}
+
+.bookmarkCard:hover .cardActions,
+.bookmarkCard:focus-within .cardActions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cardAction {
+  width: 34px;
+  height: 34px;
+  border-color: color-mix(in srgb, var(--line) 78%, transparent);
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.cardAction.danger:hover,
+.cardAction.danger:focus-visible {
+  border-color: color-mix(in srgb, var(--danger) 45%, var(--line));
+  color: var(--danger);
+}
+
+.cardBody {
+  display: grid;
+  gap: 14px;
+  padding: 16px;
+}
+
+.cardBody h2 {
+  display: -webkit-box;
+  min-height: 4.35em;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  color: var(--ink);
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.18rem;
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.cardFooter {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.cardLabels,
+.dialogLabels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cardLabels li {
+  max-width: 100%;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--line));
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-size: 0.72rem;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+  padding: 4px 7px;
+}
+
+.dialogLabels li {
+  max-width: 100%;
+}
+
+.dialogLabels button {
+  display: inline-flex;
+  max-width: 100%;
+  min-height: 28px;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, var(--line));
+  border-radius: 6px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 6px 3px 7px;
+}
+
+.dialogLabels button span {
+  overflow-wrap: anywhere;
+}
+
+.dialogLabels button:hover:not(:disabled),
+.dialogLabels button:focus-visible {
+  border-color: var(--danger);
+  color: var(--danger);
+}
+
+.dialogLabels button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.cardFooter > span:not(.folderLine):not(.sourceDot)::before,
+.cardFooter time::before {
+  content: "/";
+  margin-right: 8px;
+  color: color-mix(in srgb, var(--muted) 45%, transparent);
+}
+
+.sourceIcon {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+.sourceDot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+.folderLine {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+  gap: 5px;
+}
+
+.folderLine span {
+  overflow-wrap: anywhere;
+}
+
+.showAllButton,
+.textButton {
+  justify-self: start;
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 76%, transparent);
+  color: var(--muted-strong);
+  cursor: pointer;
+  font-size: 0.84rem;
+  font-weight: 800;
+  padding: 0 14px;
+  transition: border-color 180ms ease, color 180ms ease, background-color 180ms ease;
+}
+
+.showAllButton:hover,
+.showAllButton:focus-visible,
+.textButton:hover,
+.textButton:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 44%, var(--line));
+  color: var(--accent-strong);
+}
+
+.statePanel {
+  display: grid;
+  min-height: 260px;
+  place-items: center;
+  gap: 14px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  text-align: center;
+}
+
+.statePanel p {
+  max-width: 560px;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.55;
+}
+
+.errorPanel p {
+  color: var(--danger);
+}
+
+.dialogBackdrop {
+  position: fixed;
+  z-index: 20;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  background: rgb(0 0 0 / 0.54);
+}
+
+.agentDialog {
+  display: grid;
+  width: min(100%, 640px);
+  max-height: min(720px, calc(100vh - 44px));
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.dialogHeader,
+.agentSectionHeader,
+.agentKeyRow,
+.agentKeyActions,
+.agentRevealTitle,
+.agentLinkField,
+.agentAuditList li {
+  display: flex;
+  align-items: center;
+}
+
+.dialogHeader {
+  justify-content: space-between;
+  gap: 18px;
+  padding: 20px 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.dialogHeader > div {
+  display: grid;
+  gap: 4px;
+}
+
+.dialogHeader h2,
+.agentSection h3 {
+  margin: 0;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 1.55rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.dialogDescription {
+  max-width: 460px;
+  margin: 0;
+  color: var(--muted-strong);
+  font-size: 0.92rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.agentReveal,
+.agentSection {
+  display: grid;
+  gap: 14px;
+  padding: 20px 22px;
+}
+
+.agentReveal {
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--accent-soft) 42%, var(--surface));
+}
+
+.agentMcpReveal {
+  background: color-mix(in srgb, var(--surface) 88%, var(--accent-soft));
+}
+
+.guideDialog {
+  width: min(100%, 700px);
+}
+
+.guideSteps {
+  display: grid;
+}
+
+.guideStep {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--line);
+}
+
+.guideStep:last-child {
+  border-bottom: 0;
+}
+
+.guideStepIcon {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--accent) 34%, var(--line));
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent-soft) 62%, var(--surface));
+  color: var(--accent-strong);
+}
+
+.guideStep > div {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+}
+
+.guideStep h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: 0.94rem;
+  font-weight: 800;
+}
+
+.guideStep p {
+  color: var(--muted-strong);
+  font-size: 0.87rem;
+  font-weight: 600;
+  line-height: 1.55;
+}
+
+.guideStep a {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--accent-strong);
+  font-weight: 800;
+  text-decoration-color: color-mix(in srgb, var(--accent) 46%, transparent);
+  text-underline-offset: 3px;
+}
+
+.guideStep a:hover,
+.guideStep a:focus-visible {
+  color: var(--accent);
+}
+
+.agentConnectionInstructions {
+  display: grid;
+  gap: 5px;
+  color: var(--muted-strong);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.agentConnectionInstructions p {
+  margin: 0;
+}
+
+.agentRevealTitle,
+.agentSectionHeader {
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.agentRevealTitle {
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.agentRevealTitle span:last-child {
+  color: var(--muted);
+}
+
+.agentLinkField {
+  gap: 8px;
+}
+
+.copyStatus {
+  color: var(--accent-strong);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.agentLinkField input {
+  width: 100%;
+  min-width: 0;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  outline: none;
+  background: var(--surface-strong);
+  color: var(--ink);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.74rem;
+  padding: 0 10px;
+}
+
+.agentLinkField input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 70%, transparent);
+}
+
+.labelDialog {
+  width: min(100%, 520px);
+}
+
+.labelDialogBody {
+  display: grid;
+  gap: 12px;
+  padding: 20px 22px 22px;
+}
+
+.labelDialogBody > label {
+  color: var(--muted-strong);
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.labelForm {
+  display: flex;
+  gap: 8px;
+}
+
+.labelForm input {
+  min-width: 0;
+  flex: 1;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  outline: none;
+  background: var(--surface-strong);
+  color: var(--ink);
+  font: inherit;
+  padding: 0 10px;
+}
+
+.labelForm input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 70%, transparent);
+}
+
+.dialogAction {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid var(--accent);
+  border-radius: 6px;
+  background: var(--accent);
+  color: var(--bg);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0 11px;
+}
+
+.dialogAction:hover,
+.dialogAction:focus-visible {
+  background: var(--accent-strong);
+}
+
+.dialogAction:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.agentError,
+.agentEmpty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.agentError {
+  color: var(--danger);
+}
+
+.agentLoading {
+  display: grid;
+  min-height: 76px;
+  place-items: center;
+  color: var(--accent);
+}
+
+.agentKeyList,
+.agentAuditList {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.agentKeyRow {
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 66px;
+  border-top: 1px solid var(--line);
+}
+
+.agentKeyDetails {
+  display: grid;
+  min-width: 0;
+  gap: 4px;
+}
+
+.agentKeyDetails strong {
+  color: var(--ink);
+  font-size: 0.88rem;
+}
+
+.agentKeyDetails span {
+  overflow-wrap: anywhere;
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.agentKeyActions {
+  flex: 0 0 auto;
+  gap: 7px;
+}
+
+.agentKeyActions .iconButton {
+  width: 34px;
+  height: 34px;
+}
+
+.agentKeyActions .danger:hover,
+.agentKeyActions .danger:focus-visible {
+  border-color: color-mix(in srgb, var(--danger) 45%, var(--line));
+  color: var(--danger);
+}
+
+.agentActivity {
+  border-top: 1px solid var(--line);
+}
+
+.agentAuditList li {
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 42px;
+  border-top: 1px solid var(--line);
+  color: var(--muted-strong);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.agentAuditList time {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.spin {
+  animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes revealCard {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 760px) {
+  .appShell {
+    width: min(100% - 24px, 1180px);
+    padding-top: 16px;
+  }
+
+  .topBar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 18px;
+    padding-bottom: 24px;
+  }
+
+  .topControls {
+    justify-content: flex-start;
+  }
+
+  .feedToolbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .feedSearch {
+    width: 100%;
+  }
+
+  .segmented {
+    width: min(100%, 330px);
+  }
+
+  .periodHeader {
+    grid-template-columns: minmax(0, 1fr) 22px;
+    gap: 8px;
+  }
+
+  .periodHeading {
+    align-items: flex-start;
+  }
+
+  .periodLabelAction {
+    min-height: 34px;
+    padding: 0 9px;
+  }
+
+  .periodMeta {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    padding-bottom: 10px;
+  }
+
+  .chevron {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .cardActions {
+    opacity: 1;
+    transform: none;
+  }
+
+  .dialogBackdrop {
+    align-items: end;
+    padding: 12px;
+  }
+
+  .agentDialog {
+    max-height: calc(100vh - 24px);
+  }
+
+  .dialogHeader,
+  .agentReveal,
+  .agentSection,
+  .agentAuditList li {
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    padding: 7px 0;
+  }
+
+  .guideDialog .dialogHeader {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 12px;
+    padding: 16px 18px;
+  }
+
+  .guideDialog .dialogHeader .iconButton {
+    flex: 0 0 auto;
+  }
+
+  .guideStep {
+    grid-template-columns: 30px minmax(0, 1fr);
+    gap: 12px;
+    padding: 14px 18px;
+  }
+
+  .guideStepIcon {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}

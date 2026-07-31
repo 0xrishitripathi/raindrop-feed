@@ -1,0 +1,40 @@
+{
+  "framework": "vite",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "rewrites": [
+    {
+      "source": "/agent/:token",
+      "destination": "/api/agent-share?token=:token&agentPath=home"
+    },
+    {
+      "source": "/agent/:token/llms.txt",
+      "destination": "/api/agent-share?token=:token&agentPath=llms"
+    },
+    {
+      "source": "/agent/:token/context",
+      "destination": "/api/agent-share?token=:token&agentPath=context"
+    },
+    {
+      "source": "/agent/:token/bookmark/:id",
+      "destination": "/api/agent-share?token=:token&agentPath=bookmark&id=:id"
+    },
+    {
+      "source": "/agent/:token/tags",
+      "destination": "/api/agent-share?token=:token&agentPath=tags"
+    },
+    {
+      "source": "/agent/:token/actions",
+      "destination": "/api/agent-share?token=:token&agentPath=actions"
+    },
+    {
+      "source": "/agent/:token/mcp",
+      "destination": "/api/agent-share?token=:token&agentPath=mcp"
+    }
+  ],
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 10
+    }
+  }
+}
