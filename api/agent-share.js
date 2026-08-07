@@ -191,11 +191,15 @@ async function serveMcp(req, res) {
 async function handleMcpMessage(req, message, key) {
   if (message.method === "initialize") {
     const protocolVersion = getMcpProtocolVersion(message);
+    const serverInfo = getMcpServerInfo(req);
 
     return {
       protocolVersion,
       capabilities: { tools: { listChanged: false } },
-      serverInfo: getMcpServerInfo(req),
+      serverInfo,
+      // Some MCP clients read server branding from discovery metadata rather
+      // than directly from serverInfo during their first connection scan.
+      _meta: { "io.modelcontextprotocol/serverInfo": serverInfo },
       instructions:
         "Use search_bookmarks before answering library questions. This is a private, live Raindrop library. Ask for explicit user confirmation before changing tags or moving a bookmark. Never claim a bookmark was changed unless the write tool succeeded.",
     };
@@ -237,7 +241,8 @@ function getMcpServerInfo(req) {
     description: "Private Raindrop bookmark search and organization.",
     websiteUrl: origin,
     icons: [
-      { src: `${origin}/favicon.png`, mimeType: "image/png", sizes: ["512x512"] },
+      // No declared size lets compatible clients scale this safe PNG for any UI slot.
+      { src: `${origin}/favicon.png`, mimeType: "image/png" },
       { src: `${origin}/favicon.svg`, mimeType: "image/svg+xml", sizes: ["any"] },
     ],
   };
