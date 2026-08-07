@@ -550,6 +550,7 @@ export function App() {
         <div className="brand">
           <span className="eyebrow">Raindrop Feed</span>
           <h1>Saved links</h1>
+          <p className="brandTagline">Your private reading space, powered by Raindrop.</p>
         </div>
 
         <div className="topControls" aria-label="Feed controls">
@@ -665,6 +666,7 @@ export function App() {
               <PeriodSection
                 key={section.key}
                 section={section}
+                grain={grain}
                 expanded={expandedKeys.has(section.key)}
                 collectionNames={collections}
                 pendingActions={pendingActions}
@@ -690,6 +692,10 @@ export function App() {
               />
             ))}
           </div>
+        )}
+
+        {loadState === "ready" && filteredItems.length > 0 && (
+          <footer className="feedFooter">A private feed for your Raindrop library.</footer>
         )}
       </main>
 
@@ -844,7 +850,7 @@ function AgentKeyDialog({
         <header className="dialogHeader">
           <div>
             <span id="agent-dialog-title" className="eyebrow">Agent access</span>
-            <p className="dialogDescription">Connect Raindrop Feed MCP to talk to your bookmarks.</p>
+            <p className="dialogDescription">Connect Raindrop Feed MCP to talk with your bookmarks and add labels.</p>
           </div>
           <button className="iconButton soft" type="button" onClick={onClose} aria-label="Close" title="Close">
             <X size={18} />
@@ -1034,6 +1040,7 @@ function AccessCheckError({ message, onRetry }: { message: string; onRetry: () =
 
 function PeriodSection({
   section,
+  grain,
   expanded,
   collectionNames,
   pendingActions,
@@ -1046,6 +1053,7 @@ function PeriodSection({
   labelError,
 }: {
   section: Section;
+  grain: Grain;
   expanded: boolean;
   collectionNames: Record<number, string>;
   pendingActions: Record<number, string>;
@@ -1060,12 +1068,22 @@ function PeriodSection({
   const previewItems = expanded ? section.items : section.items.slice(0, 4);
   const hiddenCount = section.items.length - previewItems.length;
   const unlabeledCount = section.items.filter(hasNoLabels).length;
+  const periodDisplay = getPeriodDisplay(section.start, grain);
 
   return (
     <section className="periodSection">
       <div className="periodHeading">
-        <button className="periodHeader" type="button" onClick={onToggle} aria-expanded={expanded}>
-          <span className="periodTitle">{section.label}</span>
+        <button
+          className="periodHeader"
+          type="button"
+          onClick={onToggle}
+          aria-expanded={expanded}
+          aria-label={`Toggle ${section.label}`}
+        >
+          <span className="periodIdentity">
+            <span className="periodTitle">{periodDisplay.title}</span>
+            <span className="periodRange">{periodDisplay.range}</span>
+          </span>
           <span className="periodMeta">
             {section.total} saved / {section.unread} unread
           </span>
@@ -1640,6 +1658,36 @@ function getPeriodLabel(start: Date, grain: Grain) {
   });
 
   return `${startLabel} - ${endLabel}`;
+}
+
+function getPeriodDisplay(start: Date, grain: Grain) {
+  const currentStart = getPeriodStart(new Date(), grain);
+
+  if (start.getTime() === currentStart.getTime()) {
+    return {
+      title: grain === "day" ? "Today" : grain === "week" ? "This week" : "This month",
+      range: getPeriodLabel(start, grain),
+    };
+  }
+
+  if (grain === "day") {
+    const yesterday = new Date(currentStart);
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    return {
+      title: start.getTime() === yesterday.getTime() ? "Yesterday" : start.toLocaleDateString(undefined, { weekday: "long" }),
+      range: getPeriodLabel(start, grain),
+    };
+  }
+
+  if (grain === "week") {
+    return { title: "Week of", range: getPeriodLabel(start, grain) };
+  }
+
+  return {
+    title: start.toLocaleDateString(undefined, { month: "long" }),
+    range: getPeriodLabel(start, grain),
+  };
 }
 
 function getItemTitle(item: RaindropItem) {
